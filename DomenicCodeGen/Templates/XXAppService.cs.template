@@ -1,0 +1,99 @@
+﻿//Vars：
+//${namespace}
+//${entity}
+using Abp.Application.Services.Dto;
+using Abp.Authorization;
+using Abp.Collections.Extensions;
+using Abp.Domain.Repositories;
+using Abp.Extensions;
+using Abp.Linq.Extensions;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Dynamic.Core;
+using System.Text;
+using System.Threading.Tasks;
+using YX.Zero.Extensions;
+
+namespace ${namespace}
+{
+    public class ${entity}AppService : QualityAppServiceBase, I${entity}AppService
+    {
+        private readonly ${entity}Manager _manager;
+        private readonly IRepository<${entity}, Guid> _repository;
+
+        public ${entity}AppService(${entity}Manager manager, IRepository<${entity}, Guid> repository)
+        {
+            this._manager = manager;
+            this._repository = repository;
+        }
+        
+        [AbpAuthorize(PermissionNames.)]
+        public async Task CreateOrUpdate${entity}Async(CreateOrUpdate${entity}Input input)
+        {
+            if (input.${entity}.Id.HasValue)
+            {
+                await Update${entity}Async(input);
+            }
+            else
+            {
+                await Create${entity}Async(input);
+            }
+        }
+        
+        [AbpAuthorize(PermissionNames.)]
+        public async Task Delete${entity}Async(EntityDto<Guid> input)
+        {
+            var formula = await _repository.GetAsync(input.Id);
+            await _manager.DeleteAsync(formula);
+        }
+
+        [AbpAuthorize(PermissionNames.)]
+        public async Task<${entity}EditDto> Get${entity}ForEditAsync(NullableIdDto<Guid> input)
+        {
+            ${entity}EditDto formulaEditDto;
+            if (input.Id.HasValue)
+            {
+                var formula = await _repository.GetAsync(input.Id.Value);
+                formulaEditDto = ObjectMapper.Map<${entity}EditDto>(formula);
+            }
+            else
+            {
+                formulaEditDto = new ${entity}EditDto();
+            }
+            
+            return formulaEditDto;
+        }
+
+        [AbpAuthorize(PermissionNames.)]
+        public async Task<PagedResultDto<${entity}ListDto>> Get${entity}ListAsync(Get${entity}Input input)
+        {
+            var query = _repository.GetAll()
+                .WhereIf(!input.Filter.IsNullOrWhiteSpace(), x=> x.${entity}Name.Contains(input.Filter))
+                .WhereIf(input.BeginDate.HasValue, x => x.CreationTime >= input.BeginDate)
+                .WhereIf(input.EndDate.HasValue, x => x.CreationTime <= input.EndDate);
+            var count = await query.CountAsync();
+            var list = await query
+                .OrderBy(input.Sorting)
+                .PageBy(input)
+                .ProjectTo<${entity}ListDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+            return new PagedResultDto<${entity}ListDto>(count, list.FillBaseTexts().ToList());
+        }
+
+        private async Task Update${entity}Async(CreateOrUpdate${entity}Input input)
+        {
+            var formula = await _repository.GetAsync(input.${entity}.Id.Value);
+            ObjectMapper.Map(input.${entity}, formula);
+            await _manager.UpdateAsync(formula);
+        }
+
+        private async Task Create${entity}Async(CreateOrUpdate${entity}Input input)
+        {
+            var formula = ObjectMapper.Map<${entity}>(input.${entity});
+            await _manager.CreateAsync(formula);
+        }
+    }
+}

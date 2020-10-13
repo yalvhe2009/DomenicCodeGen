@@ -1,0 +1,38 @@
+//Vars：
+//${namespace}
+//${entity}
+//${repositoryName} ：_formulaRepository
+using Abp.Domain.Repositories;
+using Abp.Domain.Services;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ${namespace}
+{
+    public class ${entity}Manager : DomainService
+    {
+        private readonly IRepository<${entity}, Guid> ${repositoryName};
+
+        public ${entity}Manager(IRepository<${entity}, Guid> repository)
+        {
+            this.${repositoryName} = repository;
+        }
+
+        public async Task<Guid> CreateAsync(${entity} input)
+        {
+            return await ${repositoryName}.InsertAndGetIdAsync(input);
+        }
+
+        public async Task DeleteAsync(${entity} input)
+        {
+            await ${repositoryName}.DeleteAsync(input);
+        }
+
+        public async Task UpdateAsync(${entity} input)
+        {
+            await ${repositoryName}.UpdateAsync(input);
+        }
+    }
+}

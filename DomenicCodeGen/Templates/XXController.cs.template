@@ -1,0 +1,40 @@
+﻿//Vars：
+//${namespace}
+//${entity}
+using Abp.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using YX.Zero.Controllers;
+using Abp.Application.Services.Dto;
+
+ //修改命名空间
+namespace ${namespace}
+{
+    [Area("${entity}")]
+    public class ${entity}Controller : ZeroControllerBase
+    {
+        private readonly I${entity}AppService _appService;
+
+        public ${entity}Controller(I${entity}AppService appService)
+        {
+            this._appService = appService;
+        }
+
+        [AbpAuthorize(PermissionNames.)]
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        [AbpAuthorize(PermissionNames.)]
+        public async Task<PartialViewResult> CreateOrEdit${entity}Modal(Guid? id)
+        {
+            ${entity}EditDto formulaEditDto = await _appService.Get${entity}ForEditAsync(new NullableIdDto<Guid>(id));
+            var viewModel = ObjectMapper.Map<CreateOrEdit${entity}Model>(formulaEditDto);
+            return PartialView("CreateOrEdit${entity}Modal", viewModel);
+        }
+    }
+}

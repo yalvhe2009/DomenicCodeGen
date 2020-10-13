@@ -1,0 +1,23 @@
+﻿//Vars：
+//${namespace}
+//${entity}
+using Abp.Application.Services;
+using Abp.Application.Services.Dto;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ${namespace}
+{
+    public interface I${entity}AppService : IApplicationService
+    {
+        Task<PagedResultDto<${entity}ListDto>> Get${entity}ListAsync(Get${entity}Input input);
+
+        Task<${entity}EditDto> Get${entity}ForEditAsync(NullableIdDto<Guid> input);
+
+        Task CreateOrUpdate${entity}Async(CreateOrUpdate${entity}Input input);
+
+        Task Delete${entity}Async(EntityDto<Guid> input);
+    }
+}

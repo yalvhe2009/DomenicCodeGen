@@ -1,0 +1,14 @@
+﻿//Vars：
+//${namespace}
+//${entity}
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ${namespace}
+{
+    public class CreateOrUpdate${entity}Input
+    {
+        public ${entity}EditDto ${entity} { get; set; }
+    }
+}

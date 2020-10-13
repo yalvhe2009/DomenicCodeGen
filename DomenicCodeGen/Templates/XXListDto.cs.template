@@ -1,0 +1,25 @@
+﻿//Vars：
+//${namespace}
+//${entity}
+//${properties}
+using Abp.AutoMapper;
+using Abp.Domain.Entities.Auditing;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using YX.Zero.Authorization.Users;
+
+namespace ${namespace}
+{
+    [AutoMapFrom(typeof(${entity}))]
+    public class ${entity}ListDto : FullAuditedEntity<Guid>
+    {
+        ${properties}
+
+        [UserFullNames(nameof(CreatorUserId))]
+        public string CreatorUserName { get; set; }
+
+        [UserFullNames(nameof(LastModifierUserId))]
+        public string LastModifierUserName { get; set; }
+    }
+}

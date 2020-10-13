@@ -1,0 +1,37 @@
+﻿//Vars：
+//${namespace}
+//${entity}
+using Abp.Runtime.Validation;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using YX.Abp.Application.Services.Dto;
+
+namespace ${namespace}
+{
+    public class Get${entity}Input : PagedAndSortedInput, IShouldNormalize
+    {
+        public string Filter { get; set; }
+
+        public DateTime? BeginDate { get; set; }
+
+        public DateTime? EndDate { get; set; }
+
+        public void Normalize()
+        {
+            if (string.IsNullOrWhiteSpace(Sorting))
+            {
+                Sorting = "CreationTime desc";
+            }
+            var FieldName = Sorting.Split(" ");
+            switch (FieldName[0])
+            {
+                //这部分根据需要自定义
+                case "creatorUserName": FieldName[0] = "creatorUserId"; break;
+                case "lastModifierUserName": FieldName[0] = "lastModifierUserId"; break;
+
+            }
+            Sorting = String.Join(" ", FieldName);
+        }
+    }
+}

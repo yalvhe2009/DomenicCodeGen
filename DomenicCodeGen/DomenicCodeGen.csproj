@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>DM.DomenicCodeGen</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="DomenicCodeGen.cs~RF9b829e8.TMP" />
+  </ItemGroup>
+
+
+</Project>
