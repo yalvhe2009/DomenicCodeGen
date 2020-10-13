@@ -1,0 +1,14 @@
+﻿       /// <summary>
+        /// 公式名称
+        /// </summary>
+        public string FormulaName { get; set; }
+
+        /// <summary>
+        /// 公式的表达式
+        /// </summary>
+        public string FormulaExpression { get; set; }
+
+        /// <summary>
+        /// 公式描述
+        /// </summary>
+        public string FormulaDesc { get; set; }

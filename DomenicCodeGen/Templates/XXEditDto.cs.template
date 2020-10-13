@@ -1,0 +1,19 @@
+﻿//Vars：
+//${namespace}
+//${entity}
+//${properties}
+using Abp.AutoMapper;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ${namespace}
+{
+    [AutoMap(typeof(${entity}))]
+    public class ${entity}EditDto
+    {
+        public Guid? Id { get; set; }
+
+        ${properties}
+    }
+}

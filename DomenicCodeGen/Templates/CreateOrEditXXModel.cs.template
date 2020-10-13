@@ -1,0 +1,21 @@
+﻿//Vars：
+//${namespace}
+//${entity}
+using Abp.AutoMapper;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+ //修改命名空间
+namespace ${namespace}
+{
+    [AutoMapFrom(typeof(${entity}EditDto))]
+    public class CreateOrEdit${entity}Model : ${entity}EditDto
+    {
+        public bool IsEditMode
+        {
+            get { return Id.HasValue; }
+        }
+    }
+}
