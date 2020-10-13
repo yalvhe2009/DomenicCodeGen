@@ -3,3 +3,10 @@
 ################################################################################
 
 /.vs/DomenicCodeGen
+/DomenicCodeGen/obj/DomenicCodeGen.csproj.nuget.cache
+/DomenicCodeGen/bin/Debug/netcoreapp3.1
+/Main/obj/Debug/netcoreapp3.1
+/Main/obj/Main.csproj.nuget.cache
+/Main/bin/Debug/netcoreapp3.1
+/DomenicCodeGen/DomenicCodeGen.csproj.user
+/.vs

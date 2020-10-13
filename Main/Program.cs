@@ -8,7 +8,6 @@ namespace Main
     {
         static void Main(string[] args)
         {
-            #region 生成
             var gen = new DomenicCodeGen();
             string properties = ReadProperties();
             CodeGenInput codeGenInput = new CodeGenInput {
@@ -21,7 +20,6 @@ namespace Main
             gen.Run(codeGenInput);
             Console.WriteLine("生成完毕，按任意键结束！");
             Console.ReadKey();
-            #endregion
         }
 
         static string ReadProperties()

@@ -6,7 +6,6 @@
     <RootNamespace>DM.Main</RootNamespace>
   </PropertyGroup>
 
-
   <ItemGroup>
     <ProjectReference Include="..\DomenicCodeGen\DomenicCodeGen.csproj" />
   </ItemGroup>
