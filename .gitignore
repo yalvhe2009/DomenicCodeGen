@@ -10,3 +10,15 @@
 /Main/bin/Debug/netcoreapp3.1
 /DomenicCodeGen/DomenicCodeGen.csproj.user
 /.vs
+/DomenicCodeGen/obj/Debug/netcoreapp3.1
+/DomenicCodeGen/obj/project.nuget.cache
+/DomenicCodeGen/obj/project.assets.json
+/DomenicCodeGen/obj/DomenicCodeGen.csproj.nuget.g.targets
+/DomenicCodeGen/obj/DomenicCodeGen.csproj.nuget.g.props
+/DomenicCodeGen/obj/DomenicCodeGen.csproj.nuget.dgspec.json
+/Main/obj/Release/netcoreapp3.1
+/Main/obj/project.nuget.cache
+/Main/obj/project.assets.json
+/Main/obj/Main.csproj.nuget.g.targets
+/Main/obj/Main.csproj.nuget.g.props
+/Main/obj/Main.csproj.nuget.dgspec.json
