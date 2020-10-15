@@ -1,14 +1,44 @@
-﻿       /// <summary>
-        /// 公式名称
+﻿        /// <summary>
+        /// 主表id
         /// </summary>
-        public string FormulaName { get; set; }
+        public Guid ContractId { get; set; }
 
         /// <summary>
-        /// 公式的表达式
+        /// 发票状态（已校验、未校验）
         /// </summary>
-        public string FormulaExpression { get; set; }
+        public InvoiceStatus InvoiceStatus { get; set; } = InvoiceStatus.未校验;
 
         /// <summary>
-        /// 公式描述
+        /// 开票日期
         /// </summary>
-        public string FormulaDesc { get; set; }
+        public DateTime? InvoiceDate { get; set; }
+
+        /// <summary>
+        /// 发票类型 TODO 核实一下发票类型有哪些。
+        /// </summary>
+        public InvoiceType InvoiceType { get; set; }
+
+        /// <summary>
+        /// 税率
+        /// </summary>
+        public float TaxRate { get; set; }
+
+        /// <summary>
+        /// 开票金额（含税）
+        /// </summary>
+        public decimal InvoiceAmountIncludeTax { get; set; }
+
+        /// <summary>
+        /// 开票人
+        /// </summary>
+        public Guid InvoiceUserId { get; set; }
+
+        /// <summary>
+        /// 发票信息（票号）
+        /// </summary>
+        public string InvoiceInfo { get; set; }
+
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public string Remarks { get; set; }

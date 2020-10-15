@@ -1,0 +1,231 @@
+﻿namespace Quality.Formula.Index {
+    let $mgrid = $("#formula-index-main-grid");
+    let $mgtbr = $("#formula-index-main-grid-toolbar");
+    let $mgdlg = $("#formula_index_dlg");
+    let _formulaService = abp.services.app.formula;
+    abp.log.debug(_formulaService);
+
+    export function init(objs: any) {
+        InitSearchFilters(objs);
+        InitMainGridToolbar(objs);
+        InitDataGrid(objs);
+    }
+
+    export function follow(objs: any) {
+        CreateFormula(objs);
+        EditFormula(objs);
+        DeleteFormula();
+    }
+
+    // 初始化搜索条件控件
+    function InitSearchFilters(objs: any) {
+        // 第一行
+        $mgtbr.find(".filter").textbox({
+            label: '关键字',
+            prompt: '公式名称',
+            width: '100%',
+            labelWidth: '62px',
+            labelAlign: 'right',
+        });
+        $mgtbr.find(".beginDate").datebox({
+            label: '创建日期',
+            width: '100%',
+            labelWidth: '62px',
+            labelAlign: 'right',
+            prompt: '请选择日期'
+        });
+        $mgtbr.find(".endDate").datebox({
+            label: '至',
+            width: '100%',
+            labelWidth: '62px',
+            labelAlign: 'right',
+            prompt: '请选择日期',
+            validType: "equaldDate['#formula-index-main-grid-toolbar .beginDate']"
+        });
+
+        // 初始化搜索相关按钮
+        $mgtbr.find(".btn-search").linkbutton({
+            width: '100%',
+            iconCls: 'icon-search'
+        }).bind('click', function () {
+            //过滤条件         
+            let qC = $mgtbr.find('form').serializeFormToObject();
+            $mgrid.datagrid("load", qC);
+        });
+        //清空条件
+        $mgtbr.find(".btn-clean").linkbutton({
+            width: '100%',
+            iconCls: 'icon-filter_delete'
+        }).bind('click', function () {
+            let $form = $(this).closest("form");
+            if ($form.length > 0) {
+                $form.form('reset');
+            }
+            let qC = $mgtbr.find('form').serializeFormToObject();
+            $mgrid.datagrid("load", qC);
+        });
+
+    }
+
+    // 初始化表格功能按钮
+    function InitMainGridToolbar(objs: any) {
+        $mgtbr.find(".btn-create").linkbutton({ iconCls: "icon-add", plain: true });
+        $mgtbr.find(".btn-edit").linkbutton({ iconCls: "icon-edit", plain: true });
+        $mgtbr.find(".btn-delete").linkbutton({ iconCls: "icon-delete", plain: true });
+    }
+
+    function InitDataGrid(objs: any) {
+        $mgrid.datagrid({
+            abpMethod: _formulaService.getFormulaList,
+            queryParams: $mgtbr.find('form').serializeFormToObject(),
+            toolbar: $mgtbr,
+            frozenColumns: [[
+                { field: 'id', title: '主键', hidden: true },
+                { field: 'formulaName', title: '公式名称', sortable: false },
+
+            ]],
+            columns: [[               
+                { field: 'creatorUserName', title: '创建人', sortable: false },
+                {
+                    field: 'creationTime', title: '创建时间', sortable: true,
+                    formatter: function (value, row, index) {
+                        if (value) {
+                            return value.substr(0, 19);
+                        }
+                    }
+                },
+                { field: 'lastModifierUserName', title: '修改人', sortable: false },
+                {
+                    field: 'lastModificationTime', title: '修改时间', sortable: false,
+                    formatter: function (value, row, index) {
+                        if (value) {
+                            return value.substr(0, 19);
+                        }
+                    }
+                },
+                { field: 'formulaDesc', title: '公式描述', sortable: false },
+            ]],
+        });
+    }
+
+    function RefreshDataGrid() {
+        $mgrid.datagrid('reload');
+    }
+
+    function CreateFormula(objs: any) {
+        $mgtbr.find(".btn-create").click(function () {
+            let url = '请修改这里';
+            openDialog({
+                objs: objs,
+                element: $mgdlg,
+                title: "请修改这里",
+                url: url,
+                id: null,
+            });
+        });
+    }
+
+    function EditFormula(objs: any) {
+        $mgtbr.find(".btn-edit").click(function () {
+            let row = $mgrid.datagrid('getSelected');
+            abp.log.debug("当前行", row);
+            if (row) {
+                let url = '请修改这里';
+                openDialog({
+                    objs: objs,
+                    element: $mgdlg,
+                    title: "请修改这里",
+                    url: url,
+                    id: row.id,
+                });
+            }
+            else {
+                abp.notify.warn('请选择要操作的记录', "提示");
+            }
+        });
+    }
+
+    function DeleteFormula() {
+        $mgtbr.find(".btn-delete").click(function () {
+            let row = $mgrid.datagrid('getSelected');
+            if (row) {
+                abp.message.confirm(
+                    "确定要删除该条记录吗？", "提示",
+                    function (isConfirmed) {
+                        if (isConfirmed) {
+                            _formulaService.deleteFormula({
+                                id: row.id
+                            }).done(function () {
+                                //刷新页面
+                                RefreshDataGrid();
+                                abp.notify.success("删除成功！");
+                            });
+                        }
+                    });
+            } else {
+                abp.notify.warn('请选择要操作的记录', "提示");
+            }
+        });
+    }
+
+    function savePricingByQuality(options: any) {
+        let _$form = options.element.find('form');
+
+        if (!_$form.form('validate')) {
+            return;
+        }
+        abp.ui.setBusy(options.element.parent());
+        let formula = _$form.serializeFormToObject();
+        let params = { formula: formula}
+        
+        abp.log.debug("将要提交的表单内容信息:", formula);
+        _formulaService.createOrUpdateFormula(params).done(function () {
+            options.element.dialog('close');
+            RefreshDataGrid();
+            abp.notify.success("保存成功！");
+        }).always(function () {
+            abp.ui.clearBusy(options.element.parent());
+        });
+
+    }
+
+    function openDialog(options: any) {
+        options.element.dialog({
+            href: options.url,
+            queryParams: { id: options.id },
+            loadingMessage: "正在加载...",
+            title: options.title,
+            width: 650,
+            height: 420,
+            closed: false,
+            modal: true,
+            buttons: [{
+                text: '保存',
+                iconCls: 'icon-save',
+                handler: function () {
+                    savePricingByQuality(options);
+                }
+            }, {
+                text: '取消',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                    options.element.dialog('close');
+                }
+            }],
+            onLoad: function () {
+                //TODO initDialogContent(options);
+            },
+            onClose: function () {
+                $(this).dialog('destroy');
+            }
+        });
+    }
+
+}
+
+(function ($: JQueryStatic) {
+    let initialize = Quality.Formula.Index;
+    let viewData = App.getJsonData();
+    initialize.init(viewData);
+    initialize.follow(viewData);
+})(jQuery);

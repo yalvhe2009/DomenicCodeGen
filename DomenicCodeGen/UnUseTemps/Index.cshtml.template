@@ -1,0 +1,71 @@
+﻿@using YX.Quality.Authorization
+@{
+    ViewBag.Title = "公式库";
+}
+
+<table id="formula-index-main-grid"></table>
+<div id="formula-index-main-grid-toolbar" class="datagrid-toolbar">
+    <div class="grid-search-toolbar">
+        <form>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="row conditions">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input name="filter" class="filter">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input name="beginDate" class="beginDate">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input name="endDate" class="endDate">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="row search-btns">
+                            <div class="col-md-6">
+                                <a href="javascript:;" class="btn-search">查询</a>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="javascript:;" class="btn-clean">重置</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="grid-toolbar">
+        @if (IsGranted(PermissionNames.质量管理_公式库_编辑))
+        {
+            <a href="javascript:;" class="btn-create">新建</a>
+            <a href="javascript:;" class="btn-edit">编辑</a>
+        }
+        @if (IsGranted(PermissionNames.质量管理_公式库_删除))
+        {
+            <a href="javascript:;" class="btn-delete">删除</a>
+        }
+    </div>
+</div>
+<div id="formula_index_dlg"></div>
+
+
+@section scripts
+    {
+    <environment names="Development">
+        <script src="~/view-resources/Areas/Quality/Views/Formula/Index.js" asp-append-version="true"></script>
+
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/view-resources/Areas/Quality/Views/Formula/Index.min.js" asp-append-version="true"></script>
+
+    </environment>
+}

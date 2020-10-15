@@ -46,7 +46,8 @@ namespace DM.DomenicCodeGen.helper
                 //创建pic文件夹
                 System.IO.Directory.CreateDirectory(basePath);
             }
-            using (StreamWriter sw = new StreamWriter(filePath))
+            UTF8Encoding utf8BOM = new UTF8Encoding(true);
+            using (StreamWriter sw = new StreamWriter(filePath, false, utf8BOM))
             {
                 sw.Write(content);
             }
