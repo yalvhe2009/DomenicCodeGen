@@ -6,7 +6,7 @@
         /// <summary>
         /// 发票状态（已校验、未校验）
         /// </summary>
-        public InvoiceStatus InvoiceStatus { get; set; } = InvoiceStatus.未校验;
+        public ContractInvoiceStatus InvoiceStatus { get; set; } = ContractInvoiceStatus.未校验;
 
         /// <summary>
         /// 开票日期
@@ -16,7 +16,7 @@
         /// <summary>
         /// 发票类型 TODO 核实一下发票类型有哪些。
         /// </summary>
-        public InvoiceType InvoiceType { get; set; }
+        public ContractInvoiceType InvoiceType { get; set; }
 
         /// <summary>
         /// 税率

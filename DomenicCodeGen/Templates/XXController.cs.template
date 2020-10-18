@@ -32,8 +32,8 @@ namespace ${namespace}
         [AbpAuthorize(PermissionNames.)]
         public async Task<PartialViewResult> CreateOrEdit${entity}Modal(Guid? id)
         {
-            ${entity}EditDto formulaEditDto = await _appService.Get${entity}ForEditAsync(new NullableIdDto<Guid>(id));
-            var viewModel = ObjectMapper.Map<CreateOrEdit${entity}Model>(formulaEditDto);
+            ${entity}EditDto editDto = await _appService.Get${entity}ForEditAsync(new NullableIdDto<Guid>(id));
+            var viewModel = ObjectMapper.Map<CreateOrEdit${entity}Model>(editDto);
             return PartialView("CreateOrEdit${entity}Modal", viewModel);
         }
     }

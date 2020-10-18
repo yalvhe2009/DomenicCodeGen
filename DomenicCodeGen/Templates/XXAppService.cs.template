@@ -46,25 +46,25 @@ namespace ${namespace}
         [AbpAuthorize(PermissionNames.)]
         public async Task Delete${entity}Async(EntityDto<Guid> input)
         {
-            var formula = await _repository.GetAsync(input.Id);
-            await _manager.DeleteAsync(formula);
+            var entity = await _repository.GetAsync(input.Id);
+            await _manager.DeleteAsync(entity);
         }
 
         [AbpAuthorize(PermissionNames.)]
         public async Task<${entity}EditDto> Get${entity}ForEditAsync(NullableIdDto<Guid> input)
         {
-            ${entity}EditDto formulaEditDto;
+            ${entity}EditDto editDto;
             if (input.Id.HasValue)
             {
-                var formula = await _repository.GetAsync(input.Id.Value);
-                formulaEditDto = ObjectMapper.Map<${entity}EditDto>(formula);
+                var entity = await _repository.GetAsync(input.Id.Value);
+                editDto = ObjectMapper.Map<${entity}EditDto>(entity);
             }
             else
             {
-                formulaEditDto = new ${entity}EditDto();
+                editDto = new ${entity}EditDto();
             }
             
-            return formulaEditDto;
+            return editDto;
         }
 
         [AbpAuthorize(PermissionNames.)]
@@ -85,15 +85,15 @@ namespace ${namespace}
 
         private async Task Update${entity}Async(CreateOrUpdate${entity}Input input)
         {
-            var formula = await _repository.GetAsync(input.${entity}.Id.Value);
-            ObjectMapper.Map(input.${entity}, formula);
-            await _manager.UpdateAsync(formula);
+            var entity = await _repository.GetAsync(input.${entity}.Id.Value);
+            ObjectMapper.Map(input.${entity}, entity);
+            await _manager.UpdateAsync(entity);
         }
 
         private async Task Create${entity}Async(CreateOrUpdate${entity}Input input)
         {
-            var formula = ObjectMapper.Map<${entity}>(input.${entity});
-            await _manager.CreateAsync(formula);
+            var entity = ObjectMapper.Map<${entity}>(input.${entity});
+            await _manager.CreateAsync(entity);
         }
     }
 }
