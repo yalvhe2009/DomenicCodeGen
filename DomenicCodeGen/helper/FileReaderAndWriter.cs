@@ -7,6 +7,11 @@ namespace DM.DomenicCodeGen.helper
 {
     public static class FileReaderAndWriter
     {
+        /// <summary>
+        /// 读取路径为：filePath下的文件。
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         public static string ReadFile(string filePath)
         {
             string all = "";
@@ -38,6 +43,11 @@ namespace DM.DomenicCodeGen.helper
             return all;
         }
 
+        /// <summary>
+        /// 写入文件内容为content到路径filePath下。
+        /// </summary>
+        /// <param name="content"></param>
+        /// <param name="filePath"></param>
         public static void WriteFile(string content, string filePath)
         {
             string basePath = filePath.Replace(Path.GetFileName(filePath), "");
@@ -53,6 +63,11 @@ namespace DM.DomenicCodeGen.helper
             }
         }
 
+        /// <summary>
+        /// 获取path目录下的所有文件（不含文件夹）
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static List<string> GetFileList(string path)
         {
             List<string> fileList = new List<string>();

@@ -1,7 +1,7 @@
 //Vars：
 //${namespace}
 //${entity}
-//${repositoryName} ：_formulaRepository
+//${lowerCaseEntity}
 using Abp.Domain.Repositories;
 using Abp.Domain.Services;
 using System;
@@ -13,26 +13,26 @@ namespace ${namespace}
 {
     public class ${entity}Manager : DomainService
     {
-        private readonly IRepository<${entity}, Guid> ${repositoryName};
+        private readonly IRepository<${entity}, Guid> _${lowerCaseEntity}Repository;
 
-        public ${entity}Manager(IRepository<${entity}, Guid> repository)
+        public ${entity}Manager(IRepository<${entity}, Guid> ${lowerCaseEntity}repository)
         {
-            this.${repositoryName} = repository;
+            this._${lowerCaseEntity}Repository = repository;
         }
 
         public async Task<Guid> CreateAsync(${entity} input)
         {
-            return await ${repositoryName}.InsertAndGetIdAsync(input);
+            return await _${lowerCaseEntity}Repository.InsertAndGetIdAsync(input);
         }
 
         public async Task DeleteAsync(${entity} input)
         {
-            await ${repositoryName}.DeleteAsync(input);
+            await _${lowerCaseEntity}Repository.DeleteAsync(input);
         }
 
         public async Task UpdateAsync(${entity} input)
         {
-            await ${repositoryName}.UpdateAsync(input);
+            await _${lowerCaseEntity}Repository.UpdateAsync(input);
         }
     }
 }

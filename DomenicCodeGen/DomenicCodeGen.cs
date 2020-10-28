@@ -18,8 +18,10 @@ namespace DM.DomenicCodeGen
         {
             _basePath = System.AppDomain.CurrentDomain.BaseDirectory; //E:\Code\netcore\DomenicCodeGen\Main\bin\Debug\netcoreapp3.1\
             string assemblyName = typeof(DomenicCodeGen).Assembly.GetName().Name;//DomenicCodeGen
-            _basePath = Path.Combine(_basePath.Split("Main")[0], assemblyName);//TODO去掉Main
-            _templatesPath = Path.Combine(_basePath, "Templates");
+            int idx = _basePath.IndexOf("DomenicCodeGen");
+            _basePath = _basePath.Substring(0, idx + 14);
+            _basePath = Path.Combine(_basePath, assemblyName);
+            _templatesPath = Path.Combine(_basePath, "Templates");//上述所有操作就是为了获取到存放模板的目录
             _codeGenMetadataEntities = GetCodeGenMetadataEntities();
         }
 
@@ -27,63 +29,17 @@ namespace DM.DomenicCodeGen
         {
             foreach (var codeGenMetadataEntity in _codeGenMetadataEntities)
             {
-                string codeContent = codeGenMetadataEntity.FileContent;
-                if (codeGenMetadataEntity.TemplateFileName.Contains("Manager"))
-                {
-                    
-                    codeContent = codeContent
-                        .Replace("${namespace}", input.Namespace)
-                        .Replace("${entity}", input.Entity)
-                        .Replace("${repositoryName}", input.RepositoryName);
+                string codeContent = codeGenMetadataEntity.FileContent;                    
+                codeContent = codeContent
+                    .Replace("${namespace}", input.Namespace)
+                    .Replace("${entity}", input.Entity)
+                    .Replace("${lowerCaseEntity}", input.LowerCaseEntity)
+                    .Replace("${properties}", input.Properties);
 
-                    codeGenMetadataEntity.OutputPath = Path.Combine(input.OutBasePath, $"{input.Entity}Manager.cs");
-                }
-                else if(codeGenMetadataEntity.TemplateFileName.Contains("Dto") || codeGenMetadataEntity.TemplateFileName.Contains("Input"))
-                {
-                    //Dtos
-                    codeContent = codeContent
-                        .Replace("${namespace}", $"{input.Namespace}.Dto")
-                        .Replace("${entity}", input.Entity)
-                        .Replace("${properties}", input.Properties);
-                    string templateFileName = codeGenMetadataEntity.TemplateFileName;
-                    templateFileName = templateFileName.Replace(".cs.template", "").Replace("XX", input.Entity);
-                    templateFileName += ".cs";
-                    codeGenMetadataEntity.OutputPath = Path.Combine(input.OutBasePath, "Dto");
-                    codeGenMetadataEntity.OutputPath = Path.Combine(codeGenMetadataEntity.OutputPath, templateFileName);
-                }
-                else if (codeGenMetadataEntity.TemplateFileName.Contains("AppService"))
-                {
-                    codeContent = codeContent
-                        .Replace("${namespace}", input.Namespace)
-                        .Replace("${entity}", input.Entity);
-                    string templateFileName = codeGenMetadataEntity.TemplateFileName;
-                    templateFileName = templateFileName.Replace(".cs.template", "").Replace("XX", input.Entity);
-                    templateFileName += ".cs";
-                    codeGenMetadataEntity.OutputPath = Path.Combine(input.OutBasePath, templateFileName);
-                }
-                else if (codeGenMetadataEntity.TemplateFileName.Contains("Model"))
-                {
-                    codeContent = codeContent
-                        .Replace("${namespace}", input.Namespace)
-                        .Replace("${entity}", input.Entity);
-                    string templateFileName = codeGenMetadataEntity.TemplateFileName;
-                    templateFileName = templateFileName.Replace(".cs.template", "").Replace("XX", input.Entity);
-                    templateFileName += ".cs";
-                    codeGenMetadataEntity.OutputPath = Path.Combine(input.OutBasePath, templateFileName);
-                }
-                else if (codeGenMetadataEntity.TemplateFileName.Contains("Controller"))
-                {
-                    codeContent = codeContent
-                        .Replace("${namespace}", input.Namespace)
-                        .Replace("${entity}", input.Entity);
-                    string templateFileName = codeGenMetadataEntity.TemplateFileName;
-                    templateFileName = templateFileName.Replace(".cs.template", "").Replace("XX", input.Entity);
-                    templateFileName += ".cs";
-                    codeGenMetadataEntity.OutputPath = Path.Combine(input.OutBasePath, templateFileName);
-                }
-                codeGenMetadataEntity.OutFileContent = codeContent;
+                string outFileName = codeGenMetadataEntity.TemplateFileName.Replace("XX", input.Entity).Replace(".template", "");
+                codeGenMetadataEntity.OutputPath = Path.Combine(input.OutBasePath, outFileName);
+                codeGenMetadataEntity.OutFileContent = codeContent;//赋值输出内容。
             }
-
             //生成文件
             foreach (var item in _codeGenMetadataEntities)
             {

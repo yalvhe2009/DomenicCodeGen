@@ -1,6 +1,7 @@
 ﻿//Vars：
 //${namespace}
 //${entity}
+//${lowerCaseEntity}
 using Abp.Application.Services.Dto;
 using Abp.Authorization;
 using Abp.Collections.Extensions;
@@ -21,13 +22,13 @@ namespace ${namespace}
 {
     public class ${entity}AppService : QualityAppServiceBase, I${entity}AppService
     {
-        private readonly ${entity}Manager _manager;
-        private readonly IRepository<${entity}, Guid> _repository;
+        private readonly ${entity}Manager _${lowerCaseEntity}Manager;
+        private readonly IRepository<${entity}, Guid> _${lowerCaseEntity}Repository;
 
-        public ${entity}AppService(${entity}Manager manager, IRepository<${entity}, Guid> repository)
+        public ${entity}AppService(${entity}Manager ${lowerCaseEntity}Manager, IRepository<${entity}, Guid> ${lowerCaseEntity}Repository)
         {
-            this._manager = manager;
-            this._repository = repository;
+            this._${lowerCaseEntity}Manager = ${lowerCaseEntity}Manager;
+            this._${lowerCaseEntity}Repository = ${lowerCaseEntity}Repository;
         }
         
         [AbpAuthorize(PermissionNames.)]
@@ -46,8 +47,8 @@ namespace ${namespace}
         [AbpAuthorize(PermissionNames.)]
         public async Task Delete${entity}Async(EntityDto<Guid> input)
         {
-            var entity = await _repository.GetAsync(input.Id);
-            await _manager.DeleteAsync(entity);
+            var entity = await _${lowerCaseEntity}Repository.GetAsync(input.Id);
+            await _${lowerCaseEntity}Manager.DeleteAsync(entity);
         }
 
         [AbpAuthorize(PermissionNames.)]
@@ -56,7 +57,7 @@ namespace ${namespace}
             ${entity}EditDto editDto;
             if (input.Id.HasValue)
             {
-                var entity = await _repository.GetAsync(input.Id.Value);
+                var entity = await _${lowerCaseEntity}Repository.GetAsync(input.Id.Value);
                 editDto = ObjectMapper.Map<${entity}EditDto>(entity);
             }
             else
@@ -70,7 +71,7 @@ namespace ${namespace}
         [AbpAuthorize(PermissionNames.)]
         public async Task<PagedResultDto<${entity}ListDto>> Get${entity}ListAsync(Get${entity}Input input)
         {
-            var query = _repository.GetAll()
+            var query = _${lowerCaseEntity}Repository.GetAll()
                 .WhereIf(!input.Filter.IsNullOrWhiteSpace(), x=> x.${entity}Name.Contains(input.Filter))
                 .WhereIf(input.BeginDate.HasValue, x => x.CreationTime >= input.BeginDate)
                 .WhereIf(input.EndDate.HasValue, x => x.CreationTime <= input.EndDate);
@@ -85,15 +86,15 @@ namespace ${namespace}
 
         private async Task Update${entity}Async(CreateOrUpdate${entity}Input input)
         {
-            var entity = await _repository.GetAsync(input.${entity}.Id.Value);
+            var entity = await _${lowerCaseEntity}Repository.GetAsync(input.${entity}.Id.Value);
             ObjectMapper.Map(input.${entity}, entity);
-            await _manager.UpdateAsync(entity);
+            await _${lowerCaseEntity}Manager.UpdateAsync(entity);
         }
 
         private async Task Create${entity}Async(CreateOrUpdate${entity}Input input)
         {
             var entity = ObjectMapper.Map<${entity}>(input.${entity});
-            await _manager.CreateAsync(entity);
+            await _${lowerCaseEntity}Manager.CreateAsync(entity);
         }
     }
 }

@@ -11,11 +11,11 @@ namespace Main
             var gen = new DomenicCodeGen();
             string properties = ReadProperties();
             CodeGenInput codeGenInput = new CodeGenInput {
-                Entity = "RealPayment", 
-                Namespace = "YX.Contract.Entities.Payment", 
+                Entity = "WorkingDay",
+                LowerCaseEntity = "workingDay", 
+                Namespace = "YX.SystemConfiguration", 
                 OutBasePath = "C:\\Users\\yalvh\\Desktop\\output", 
-                Properties = properties, 
-                RepositoryName = "_realPaymentRepository"
+                Properties = properties
             };
             gen.Run(codeGenInput);
             Console.WriteLine("生成完毕，按任意键结束！");

@@ -1,44 +1,14 @@
 ﻿        /// <summary>
-        /// 主表id
+        /// 时间
         /// </summary>
-        public Guid ContractId { get; set; }
+        public DateTime? WorkDay { get; set; }
 
         /// <summary>
-        /// 发票状态（已校验、未校验）
+        /// 是否为工作日
         /// </summary>
-        public ContractInvoiceStatus InvoiceStatus { get; set; } = ContractInvoiceStatus.未校验;
+        public bool? IsWork { get; set; }
 
         /// <summary>
-        /// 开票日期
+        /// 是否程序生成的数据（默认数据）
         /// </summary>
-        public DateTime? InvoiceDate { get; set; }
-
-        /// <summary>
-        /// 发票类型 TODO 核实一下发票类型有哪些。
-        /// </summary>
-        public ContractInvoiceType InvoiceType { get; set; }
-
-        /// <summary>
-        /// 税率
-        /// </summary>
-        public float TaxRate { get; set; }
-
-        /// <summary>
-        /// 开票金额（含税）
-        /// </summary>
-        public decimal InvoiceAmountIncludeTax { get; set; }
-
-        /// <summary>
-        /// 开票人
-        /// </summary>
-        public Guid InvoiceUserId { get; set; }
-
-        /// <summary>
-        /// 发票信息（票号）
-        /// </summary>
-        public string InvoiceInfo { get; set; }
-
-        /// <summary>
-        /// 备注
-        /// </summary>
-        public string Remarks { get; set; }
+        public bool? IsDefault { get; set; }

@@ -9,5 +9,9 @@
     <None Remove="DomenicCodeGen.cs~RF9b829e8.TMP" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="UnUseTemps\" />
+  </ItemGroup>
+
 
 </Project>

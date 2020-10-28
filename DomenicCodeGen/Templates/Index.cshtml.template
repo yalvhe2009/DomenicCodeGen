@@ -1,10 +1,10 @@
 ﻿@using YX.Quality.Authorization
 @{
-    ViewBag.Title = "公式库";
+    ViewBag.Title = "这是一个标题";
 }
 
-<table id="formula-index-main-grid"></table>
-<div id="formula-index-main-grid-toolbar" class="datagrid-toolbar">
+<table id="${lowerCaseEntity}-index-main-grid"></table>
+<div id="${lowerCaseEntity}-index-main-grid-toolbar" class="datagrid-toolbar">
     <div class="grid-search-toolbar">
         <form>
             <div class="container-fluid">
@@ -55,17 +55,17 @@
         }
     </div>
 </div>
-<div id="formula_index_dlg"></div>
+<div id="${lowerCaseEntity}_index_dlg"></div>
 
 
 @section scripts
     {
     <environment names="Development">
-        <script src="~/view-resources/Areas/Quality/Views/Formula/Index.js" asp-append-version="true"></script>
+        <script src="~/view-resources/Areas/Quality/Views/${entity}/Index.js" asp-append-version="true"></script>
 
     </environment>
     <environment names="Staging,Production">
-        <script src="~/view-resources/Areas/Quality/Views/Formula/Index.min.js" asp-append-version="true"></script>
+        <script src="~/view-resources/Areas/Quality/Views/${entity}/Index.min.js" asp-append-version="true"></script>
 
     </environment>
 }

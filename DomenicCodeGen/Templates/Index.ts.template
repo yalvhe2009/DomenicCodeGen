@@ -1,9 +1,9 @@
-﻿namespace Quality.Formula.Index {
-    let $mgrid = $("#formula-index-main-grid");
-    let $mgtbr = $("#formula-index-main-grid-toolbar");
-    let $mgdlg = $("#formula_index_dlg");
-    let _formulaService = abp.services.app.formula;
-    abp.log.debug(_formulaService);
+﻿namespace Quality.${entity}.Index {
+    let $mgrid = $("#${lowerCaseEntity}-index-main-grid");
+    let $mgtbr = $("#${lowerCaseEntity}-index-main-grid-toolbar");
+    let $mgdlg = $("#${lowerCaseEntity}_index_dlg");
+    let _${lowerCaseEntity}Service = abp.services.app.${lowerCaseEntity};
+    abp.log.debug(_${lowerCaseEntity}Service);
 
     export function init(objs: any) {
         InitSearchFilters(objs);
@@ -12,9 +12,9 @@
     }
 
     export function follow(objs: any) {
-        CreateFormula(objs);
-        EditFormula(objs);
-        DeleteFormula();
+        Create${entity}(objs);
+        Edit${entity}(objs);
+        Delete${entity}();
     }
 
     // 初始化搜索条件控件
@@ -40,7 +40,7 @@
             labelWidth: '62px',
             labelAlign: 'right',
             prompt: '请选择日期',
-            validType: "equaldDate['#formula-index-main-grid-toolbar .beginDate']"
+            validType: "equaldDate['#${lowerCaseEntity}-index-main-grid-toolbar .beginDate']"
         });
 
         // 初始化搜索相关按钮
@@ -76,12 +76,12 @@
 
     function InitDataGrid(objs: any) {
         $mgrid.datagrid({
-            abpMethod: _formulaService.getFormulaList,
+            abpMethod: _${lowerCaseEntity}Service.get${entity}List,
             queryParams: $mgtbr.find('form').serializeFormToObject(),
             toolbar: $mgtbr,
             frozenColumns: [[
                 { field: 'id', title: '主键', hidden: true },
-                { field: 'formulaName', title: '公式名称', sortable: false },
+                { field: '${lowerCaseEntity}Name', title: '公式名称', sortable: false },
 
             ]],
             columns: [[               
@@ -103,7 +103,7 @@
                         }
                     }
                 },
-                { field: 'formulaDesc', title: '公式描述', sortable: false },
+                { field: '${lowerCaseEntity}Desc', title: '公式描述', sortable: false },
             ]],
         });
     }
@@ -112,7 +112,7 @@
         $mgrid.datagrid('reload');
     }
 
-    function CreateFormula(objs: any) {
+    function Create${entity}(objs: any) {
         $mgtbr.find(".btn-create").click(function () {
             let url = '请修改这里';
             openDialog({
@@ -125,7 +125,7 @@
         });
     }
 
-    function EditFormula(objs: any) {
+    function Edit${entity}(objs: any) {
         $mgtbr.find(".btn-edit").click(function () {
             let row = $mgrid.datagrid('getSelected');
             abp.log.debug("当前行", row);
@@ -145,7 +145,7 @@
         });
     }
 
-    function DeleteFormula() {
+    function Delete${entity}() {
         $mgtbr.find(".btn-delete").click(function () {
             let row = $mgrid.datagrid('getSelected');
             if (row) {
@@ -153,7 +153,7 @@
                     "确定要删除该条记录吗？", "提示",
                     function (isConfirmed) {
                         if (isConfirmed) {
-                            _formulaService.deleteFormula({
+                            _${lowerCaseEntity}Service.delete${entity}({
                                 id: row.id
                             }).done(function () {
                                 //刷新页面
@@ -175,11 +175,11 @@
             return;
         }
         abp.ui.setBusy(options.element.parent());
-        let formula = _$form.serializeFormToObject();
-        let params = { formula: formula}
+        let ${lowerCaseEntity} = _$form.serializeFormToObject();
+        let params = { ${lowerCaseEntity}: ${lowerCaseEntity}}
         
-        abp.log.debug("将要提交的表单内容信息:", formula);
-        _formulaService.createOrUpdateFormula(params).done(function () {
+        abp.log.debug("将要提交的表单内容信息:", ${lowerCaseEntity});
+        _${lowerCaseEntity}Service.createOrUpdate${entity}(params).done(function () {
             options.element.dialog('close');
             RefreshDataGrid();
             abp.notify.success("保存成功！");
@@ -224,7 +224,7 @@
 }
 
 (function ($: JQueryStatic) {
-    let initialize = Quality.Formula.Index;
+    let initialize = Quality.${entity}.Index;
     let viewData = App.getJsonData();
     initialize.init(viewData);
     initialize.follow(viewData);

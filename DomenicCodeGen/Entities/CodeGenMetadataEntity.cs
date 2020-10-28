@@ -11,8 +11,14 @@ namespace DM.DomenicCodeGen.Entities
         /// </summary>
         public string TemplateFileName { get; set; }
 
+        /// <summary>
+        /// 文件内容
+        /// </summary>
         public string FileContent { get; set; }
 
+        /// <summary>
+        /// 输出的文件内容
+        /// </summary>
         public string OutFileContent { get; set; }
 
         /// <summary>
@@ -20,6 +26,9 @@ namespace DM.DomenicCodeGen.Entities
         /// </summary>
         public Dictionary<string,string> Variables { get; set; }
 
+        /// <summary>
+        /// 输出的全路径
+        /// </summary>
         public string OutputPath { get; set; }
     }
 }

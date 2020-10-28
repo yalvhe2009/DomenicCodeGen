@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using YX.Zero.Controllers;
 using Abp.Application.Services.Dto;
 
- //修改命名空间
 namespace ${namespace}
 {
     [Area("${entity}")]
