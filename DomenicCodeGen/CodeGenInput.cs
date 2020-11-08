@@ -33,5 +33,15 @@ namespace DM.DomenicCodeGen
         /// 实体属性(Properties)代码正文
         /// </summary>
         public string Properties { get; set; }
-    }
+
+        /// <summary>
+        /// 模块名
+        /// </summary>
+        public string ModuleName { get; set; }
+
+        /// <summary>
+        /// Area名
+        /// </summary>
+        public string AreaName { get; set; }
+}
 }

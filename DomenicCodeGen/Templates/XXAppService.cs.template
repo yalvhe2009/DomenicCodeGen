@@ -20,7 +20,7 @@ using YX.Zero.Extensions;
 
 namespace ${namespace}
 {
-    public class ${entity}AppService : QualityAppServiceBase, I${entity}AppService
+    public class ${entity}AppService : ${moduleName}AppServiceBase, I${entity}AppService
     {
         private readonly ${entity}Manager _${lowerCaseEntity}Manager;
         private readonly IRepository<${entity}, Guid> _${lowerCaseEntity}Repository;

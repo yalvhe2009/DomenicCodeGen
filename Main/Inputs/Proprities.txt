@@ -1,14 +1,217 @@
-﻿        /// <summary>
-        /// 时间
+﻿        
+        /// <summary>
+        /// 合同名称（合同描述）
         /// </summary>
-        public DateTime? WorkDay { get; set; }
+        [Required]
+        [StringLength(MaxContractNameLength)]
+        public string ContractName { get; set; }
 
         /// <summary>
-        /// 是否为工作日
+        /// 合同编号 
         /// </summary>
-        public bool? IsWork { get; set; }
+        [StringLength(MaxContractNumberLength)]
+        public string ContractNumber { get; set; }
+        
+        /// <summary>
+        /// 合同自编号
+        /// </summary>
+        [StringLength(MaxSelfContractNumberLength)]
+        public string SelfContractNumber { get; set; }
+        
+        /// <summary>
+        /// 主合同编号
+        /// </summary>
+        [StringLength(MaxMainContractNumberLength)]
+        public string MainContractNumber { get; set; }
 
         /// <summary>
-        /// 是否程序生成的数据（默认数据）
+        /// 付款方式（合同阶段性付款、全额预付款、其他）在数据字典
         /// </summary>
-        public bool? IsDefault { get; set; }
+        [Required]
+        public string PaymentType { get; set; }
+        
+        /// <summary>
+        /// 合同分类
+        /// </summary>
+        [Required]
+        public ServiceEntructContractCategory? ContractCategory { get; set; }
+        
+        /// <summary>
+        /// 合同类型
+        /// </summary>
+        [Required]
+        public ServiceEntructContractType? ContractType { get; set; }
+        
+        /// <summary>
+        /// 合同辅助类型
+        /// </summary>
+        [Required]
+        public ServiceEntructContractExtraType? ContractExtraType { get; set; }
+
+        /// <summary>
+        /// 合同期限
+        /// </summary>
+        [Required]
+        public ServiceEntructContractTerm? ContractTerm { get; set; }
+
+        /// <summary>
+        /// 合同币种
+        /// </summary>
+        [Required]
+        public Currency? Currency { get; set; } = YX.ContractOrder.Currency.人民币;
+        #endregion
+
+        #region 我方
+        
+        /// <summary>
+        /// 我方签约主体（公司）
+        /// </summary>
+        [Required]
+        [StringLength(MaxCompanyCodeLength)]
+        public string CompanyCode { get; set; }
+        
+        /// <summary>
+        /// 我方主体地位
+        /// </summary>
+        [Required]
+        public ContractCompanyRole? CompanyRole { get; set; }
+        
+        /// <summary>
+        /// 签署人
+        /// </summary>
+        [StringLength(MaxSignerLength)]
+        public string Signer { get; set; }
+        
+        /// <summary>
+        /// 经办人
+        /// </summary>
+        [StringLength(MaxAgentLength)]
+        public string Agent { get; set; }
+
+        /// <summary>
+        /// 主办部门
+        /// </summary>
+        [Required]
+        [StringLength(MaxHostDepartCodeLength)]
+        public string HostDepartCode { get; set; }
+        #endregion
+
+        #region 合同状态
+
+        /// <summary>
+        /// 合同状态
+        /// </summary>
+        [Required]
+        public ContractStatus? Status { get; set; }
+
+        /// <summary>
+        /// 是否需会签
+        /// </summary>
+        [Required]
+        public bool? IsCountersign { get; set; }
+
+        /// <summary>
+        /// 合同起草日期
+        /// </summary>
+        public DateTime? DraftingDate { get; set; }
+
+        /// <summary>
+        /// 合同签订日期
+        /// </summary>
+        public DateTime? SigningDate { get; set; }
+
+        /// <summary>
+        /// 合同复核日期
+        /// </summary>
+        public DateTime? ReviewDate { get; set; }
+
+        /// <summary>
+        /// 合同生效时间
+        /// </summary>
+        public DateTime? EffectiveDate { get; set; }
+
+        /// <summary>
+        /// 合同终止日期
+        /// </summary>
+        public DateTime? TerminationDate { get; set; }
+
+        /// <summary>
+        /// 终止原因
+        /// </summary>
+        [StringLength(MaxTerminationReasonLength)]
+        public string TerminationReason { get; set; }
+
+        /// <summary>
+        /// 是否提交
+        /// </summary>
+        public bool? IsCommited { get; set; } = false;
+
+        /// <summary>
+        /// 提交时间
+        /// </summary>
+        public DateTime? CommitedDateTime { get; set; }
+
+        /// <summary>
+        /// 是否撤回
+        /// </summary>
+        public bool? IsWithdrawal { get; set; } = false;
+
+        /// <summary>
+        /// 撤回时间
+        /// </summary>
+        public DateTime? WithdrawalDate { get; set; }
+
+        /// <summary>
+        /// 是否作废
+        /// </summary>
+        public bool? IsInvalid { get; set; } = false;
+
+        /// <summary>
+        /// 作废时间
+        /// </summary>
+        public DateTime? InvalidDateTime { get; set; }
+
+        /// <summary>
+        /// 审核状态
+        /// </summary>
+        [Required]
+        public ServiceEntructContractApproveStatus? ApproveStatus { get; set; } = ServiceEntructContractApproveStatus.未审核;
+
+        /// <summary>
+        /// 审核人
+        /// </summary>
+        [Required]
+        public long? ApproveUserId { get; set; }
+
+        /// <summary>
+        /// 审核时间
+        /// </summary>
+        public DateTime? ApproveDateTime { get; set; }
+
+        /// <summary>
+        /// 审核意见
+        /// </summary>
+        public string ApproveComment { get; set; }
+
+        #endregion
+
+        #region 备注信息
+
+        /// <summary>
+        /// 合同备注
+        /// </summary>
+        public string Remark { get; set; }
+        
+        /// <summary>
+        /// <summary>
+        /// 流程模板ID
+        /// </summary>
+        [StringLength(MaxFlowTemplateIDLength)]
+        public string FlowTemplateID { get; set; }
+        
+        /// <summary>
+        /// 流程实例ID
+        /// </summary>
+        [StringLength(MaxFlowInstanceIDLength)]
+        public string FlowInstanceID { get; set; }
+        #endregion

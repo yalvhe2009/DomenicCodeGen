@@ -34,7 +34,10 @@ namespace DM.DomenicCodeGen
                     .Replace("${namespace}", input.Namespace)
                     .Replace("${entity}", input.Entity)
                     .Replace("${lowerCaseEntity}", input.LowerCaseEntity)
-                    .Replace("${properties}", input.Properties);
+                    .Replace("${properties}", input.Properties)
+                    .Replace("${areaName}", input.AreaName)
+                    .Replace("${moduleName}", input.ModuleName)
+                    ;
 
                 string outFileName = codeGenMetadataEntity.TemplateFileName.Replace("XX", input.Entity).Replace(".template", "");
                 codeGenMetadataEntity.OutputPath = Path.Combine(input.OutBasePath, outFileName);

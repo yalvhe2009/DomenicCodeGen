@@ -1,4 +1,4 @@
-﻿namespace Quality.${entity}.Index {
+﻿namespace ${moduleName}.${entity}.Index {
     let $mgrid = $("#${lowerCaseEntity}-index-main-grid");
     let $mgtbr = $("#${lowerCaseEntity}-index-main-grid-toolbar");
     let $mgdlg = $("#${lowerCaseEntity}_index_dlg");
@@ -168,7 +168,7 @@
         });
     }
 
-    function savePricingByQuality(options: any) {
+    function save${entity}(options: any) {
         let _$form = options.element.find('form');
 
         if (!_$form.form('validate')) {
@@ -203,7 +203,7 @@
                 text: '保存',
                 iconCls: 'icon-save',
                 handler: function () {
-                    savePricingByQuality(options);
+                    save${entity}(options);
                 }
             }, {
                 text: '取消',
@@ -224,7 +224,7 @@
 }
 
 (function ($: JQueryStatic) {
-    let initialize = Quality.${entity}.Index;
+    let initialize = ${moduleName}.${entity}.Index;
     let viewData = App.getJsonData();
     initialize.init(viewData);
     initialize.follow(viewData);

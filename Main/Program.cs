@@ -11,11 +11,13 @@ namespace Main
             var gen = new DomenicCodeGen();
             string properties = ReadProperties();
             CodeGenInput codeGenInput = new CodeGenInput {
-                Entity = "WorkingDay",
-                LowerCaseEntity = "workingDay", 
-                Namespace = "YX.SystemConfiguration", 
+                Entity = "ServiceEntrustContract",
+                LowerCaseEntity = "serviceEntrustContract", 
+                Namespace = "YX.ContractOrder", 
                 OutBasePath = "C:\\Users\\yalvh\\Desktop\\output", 
-                Properties = properties
+                Properties = properties,
+                AreaName = "Contracts",
+                ModuleName = "ContractOrder"
             };
             gen.Run(codeGenInput);
             Console.WriteLine("生成完毕，按任意键结束！");

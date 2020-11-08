@@ -12,7 +12,7 @@ using Abp.Application.Services.Dto;
 
 namespace ${namespace}
 {
-    [Area("${entity}")]
+    [Area("${areaName}")]
     public class ${entity}Controller : ZeroControllerBase
     {
         private readonly I${entity}AppService _appService;

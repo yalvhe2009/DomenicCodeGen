@@ -17,7 +17,7 @@ namespace ${namespace}
 
         public ${entity}Manager(IRepository<${entity}, Guid> ${lowerCaseEntity}repository)
         {
-            this._${lowerCaseEntity}Repository = repository;
+            _${lowerCaseEntity}Repository = ${lowerCaseEntity}repository;
         }
 
         public async Task<Guid> CreateAsync(${entity} input)

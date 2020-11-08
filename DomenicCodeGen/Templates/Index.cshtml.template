@@ -1,4 +1,4 @@
-﻿@using YX.Quality.Authorization
+﻿@using YX.${moduleName}.Authorization
 @{
     ViewBag.Title = "这是一个标题";
 }
@@ -61,11 +61,11 @@
 @section scripts
     {
     <environment names="Development">
-        <script src="~/view-resources/Areas/Quality/Views/${entity}/Index.js" asp-append-version="true"></script>
+        <script src="~/view-resources/Areas/${areaName}/Views/${entity}/Index.js" asp-append-version="true"></script>
 
     </environment>
     <environment names="Staging,Production">
-        <script src="~/view-resources/Areas/Quality/Views/${entity}/Index.min.js" asp-append-version="true"></script>
+        <script src="~/view-resources/Areas/${areaName}/Views/${entity}/Index.min.js" asp-append-version="true"></script>
 
     </environment>
 }
