@@ -25,14 +25,9 @@ namespace ${namespace}
             return await _${lowerCaseEntity}Repository.InsertAndGetIdAsync(input);
         }
 
-        public async Task DeleteAsync(${entity} input)
+        public async Task DeleteAsync(EntityDto<Guid> input)
         {
-            await _${lowerCaseEntity}Repository.DeleteAsync(input);
-        }
-
-        public async Task UpdateAsync(${entity} input)
-        {
-            await _${lowerCaseEntity}Repository.UpdateAsync(input);
+            await _${lowerCaseEntity}Repository.DeleteAsync(x => x.Id == input.Id);
         }
     }
 }

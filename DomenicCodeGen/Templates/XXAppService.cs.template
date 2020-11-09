@@ -47,8 +47,7 @@ namespace ${namespace}
         [AbpAuthorize(PermissionNames.)]
         public async Task Delete${entity}Async(EntityDto<Guid> input)
         {
-            var entity = await _${lowerCaseEntity}Repository.GetAsync(input.Id);
-            await _${lowerCaseEntity}Manager.DeleteAsync(entity);
+            await _${lowerCaseEntity}Manager.DeleteAsync(input);
         }
 
         [AbpAuthorize(PermissionNames.)]
@@ -72,7 +71,7 @@ namespace ${namespace}
         public async Task<PagedResultDto<${entity}ListDto>> Get${entity}ListAsync(Get${entity}Input input)
         {
             var query = _${lowerCaseEntity}Repository.GetAll()
-                .WhereIf(!input.Filter.IsNullOrWhiteSpace(), x=> x.${entity}Name.Contains(input.Filter))
+                //.WhereIf(!input.Filter.IsNullOrWhiteSpace(), x=> x.${entity}Name.Contains(input.Filter))
                 .WhereIf(input.BeginDate.HasValue, x => x.CreationTime >= input.BeginDate)
                 .WhereIf(input.EndDate.HasValue, x => x.CreationTime <= input.EndDate);
             var count = await query.CountAsync();
@@ -88,7 +87,6 @@ namespace ${namespace}
         {
             var entity = await _${lowerCaseEntity}Repository.GetAsync(input.${entity}.Id.Value);
             ObjectMapper.Map(input.${entity}, entity);
-            await _${lowerCaseEntity}Manager.UpdateAsync(entity);
         }
 
         private async Task Create${entity}Async(CreateOrUpdate${entity}Input input)
