@@ -2,6 +2,7 @@
 //${namespace}
 //${entity}
 //${lowerCaseEntity}
+using Abp.Application.Services.Dto;
 using Abp.Domain.Repositories;
 using Abp.Domain.Services;
 using System;

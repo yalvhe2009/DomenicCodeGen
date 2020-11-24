@@ -11,8 +11,8 @@ namespace Main
             var gen = new DomenicCodeGen();
             string properties = ReadProperties();
             CodeGenInput codeGenInput = new CodeGenInput {
-                Entity = "ServiceEntrustContract",
-                LowerCaseEntity = "serviceEntrustContract", 
+                Entity = "ContractCommonAttachment",
+                LowerCaseEntity = "contractCommonAttachment", 
                 Namespace = "YX.ContractOrder", 
                 OutBasePath = "C:\\Users\\yalvh\\Desktop\\output", 
                 Properties = properties,

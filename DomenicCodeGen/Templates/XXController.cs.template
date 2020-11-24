@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using YX.Zero.Controllers;
 using Abp.Application.Services.Dto;
+using Abp.Domain.Uow;
 
 namespace ${namespace}
 {
@@ -29,6 +30,7 @@ namespace ${namespace}
         }
 
         [AbpAuthorize(PermissionNames.)]
+        [UnitOfWork(isTransactional: false)]
         public async Task<PartialViewResult> CreateOrEdit${entity}Modal(Guid? id)
         {
             ${entity}EditDto editDto = await _appService.Get${entity}ForEditAsync(new NullableIdDto<Guid>(id));

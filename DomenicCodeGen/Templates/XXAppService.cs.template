@@ -17,6 +17,7 @@ using System.Linq.Dynamic.Core;
 using System.Text;
 using System.Threading.Tasks;
 using YX.Zero.Extensions;
+using Abp.Domain.Uow;
 
 namespace ${namespace}
 {
@@ -51,6 +52,7 @@ namespace ${namespace}
         }
 
         [AbpAuthorize(PermissionNames.)]
+        [UnitOfWork(isTransactional: false)]
         public async Task<${entity}EditDto> Get${entity}ForEditAsync(NullableIdDto<Guid> input)
         {
             ${entity}EditDto editDto;
@@ -68,9 +70,10 @@ namespace ${namespace}
         }
 
         [AbpAuthorize(PermissionNames.)]
+        [UnitOfWork(isTransactional: false)]
         public async Task<PagedResultDto<${entity}ListDto>> Get${entity}ListAsync(Get${entity}Input input)
         {
-            var query = _${lowerCaseEntity}Repository.GetAll()
+            var query = _${lowerCaseEntity}Repository.GetAll().AsNoTracking()
                 //.WhereIf(!input.Filter.IsNullOrWhiteSpace(), x=> x.${entity}Name.Contains(input.Filter))
                 .WhereIf(input.BeginDate.HasValue, x => x.CreationTime >= input.BeginDate)
                 .WhereIf(input.EndDate.HasValue, x => x.CreationTime <= input.EndDate);
